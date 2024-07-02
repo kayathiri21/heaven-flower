@@ -1,0 +1,127 @@
+{% extends 'app/base.html' %} {% block title%}Home{% endblock %}{% block body %}
+
+<section class="sec">
+  <h1>Brighten Someone's Day with Fresh Blooms!</h1>
+  <p>Elegant Bouquets for Every Occasion</p>
+
+</section>
+
+
+
+<div class="container-fluid">
+  <h3 class="p-3 mb-2 bg-danger-subtle text-danger-emphasis text-center">
+    Our Products
+  </h3>
+  <div class="row">
+    <!-- Sidebar (left side) -->
+    <div class="col-md-3">
+      <h2>Main Categories</h2>
+      <ul class="list-group list-group-flush">
+        {% for m in mcat %}
+        <li class="list-group-item list-group-item-action list-group-item-success">
+          {{ m.name }}
+        </li>
+        <ul class="list-group list-group-flush">
+          {% for sub in m.subcatagroy_set.all %}
+          <li class="list-group-item list-group-item-action">
+            <a href="?subcatagory_id={{ sub.id }}" class="d-flex align-items-center">
+              <img src="{{sub.photo.url}}" class="rounded-circle float-start" style="width: 100px; height: 100px"
+                alt="..." />
+              {{ sub.name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Main Content (right side) -->
+    <div class="col-md-9">
+      <h2>All Products</h2>
+      <div class="row">
+        {% for product in products %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card product-grid">
+            <div class="product-image">
+              <a href="">
+                <img src="{{product.photo.url}}" class="card-img-top" alt="Product Image" />
+              </a>
+              {% if product.stock > 0 %}
+              <span class="product-stock product-instock">In Stock</span>
+              {% else %}
+              <span class="product-stock product-outofstock">Out Of Stock</span>
+              {% endif %}
+              <ul class="product-links">
+                <li>
+                  <a href="">
+                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                      {% csrf_token %}
+                      <button type="submit" class="btn a btn-link p-0"><i class="fas fa-shopping-cart"></i></button>
+                    </form>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'add_wishlist' product.id  %}"><i class="fa fa-heart"></i></a>
+                </li>
+                <li>
+                  <a href="{% url 'productd' product.id %}"><i class="fa fa-eye"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body product-content h-4">
+              <h5 class="card-title title">
+                <a href="{% url 'productd' product.id %}">{{ product.name }}
+                </a>
+              </h5>
+
+              <p class="card-text price">Price: Rs {{ product.price }}</p>
+              <!-- Add more product details as needed -->
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% if show_login_message %}
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Action Requires Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You must <a href="{% url 'login' %}">log in</a> or
+        <a href="{% url 'signup' %}">create an account</a> to perform this
+        action.
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Ensure Bootstrap and jQuery scripts are loaded -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- Script to show the modal if show_login_message is true -->
+<script>
+  $(document).ready(function () {
+    {% if show_login_message %}
+    $('#loginModal').modal('show');
+    {% endif %}
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'app/base.html' %}
+
+
+{% block title %}About Us{% endblock %}
+
+{% block body %}
+<div class="container ">
+    <section class="sec text-center mb-5">
+        <h1 class="display-4">About Us</h1>
+        <p class="lead">Welcome to our flower shop! At <strong>[Heaven Flower ]</strong>, we believe in the beauty and
+            joy that fresh flowers bring to every occasion. Our mission is to brighten someone's day with elegant and
+            thoughtfully crafted bouquets.</p>
+        <p>Founded in <strong>[2024]</strong>, our shop has been dedicated to providing the highest quality flowers and
+            exceptional customer service. Our team of experienced florists takes pride in selecting the freshest blooms
+            and designing stunning arrangements that suit every taste and event.</p>
+        <p>Whether you're celebrating a birthday, anniversary, wedding, or simply want to make someone's day special, we
+            have a bouquet for you. Explore our wide range of floral arrangements and find the perfect flowers for any
+            occasion.</p>
+        <p>Thank you for choosing <strong>[Heaven Flower ]</strong>. We look forward to helping you express your
+            emotions through the language of flowers.</p>
+    </section>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h2 class="card-title">Our Mission</h2>
+                    <p class="card-text">To bring happiness and beauty to every occasion with our carefully crafted
+                        floral arrangements. We are committed to providing our customers with the freshest flowers and
+                        exceptional service.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h2 class="card-title">Our Team</h2>
+                    <p class="card-text">Our team of skilled florists is passionate about flowers and creativity. Each
+                        member of our team brings unique talent and dedication to ensure every bouquet is a work of art.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Contact Us</h2>
+                    <p class="text-center">If you have any questions or need assistance, please feel free to contact us:
+                    </p>
+                    <ul class="list-unstyled text-center">
+                        <li><strong>Email:</strong> info@flowershop.com</li>
+                        <li><strong>Phone:</strong> 1234567891</li>
+                        <li><strong>Address:</strong> kk district</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extra_css %}
+<style>
+    .card-title {
+        color: #5a5a5a;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .card-text {
+        color: #7a7a7a;
+        font-size: 1rem;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .card {
+        margin-bottom: 2rem;
+    }
+
+    .lead {
+        color: #5a5a5a;
+        font-size: 1.25rem;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .list-unstyled li {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+{% endblock %}

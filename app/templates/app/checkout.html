@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% block title %}About{% endblock %}
+{% block body %}
+
+<form method="post" action="{% url 'checkout' %}" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-6">
+      <label for="inputname" class="form-label">Name</label>
+      <input type="text" class="form-control" name="customer_name" id="inputname">
+    </div>
+    <div class="col-md-6">
+      <label for="mobile_number" class="form-label">Mobile Number</label>
+      <input type="text" class="form-control" id="mobile_number" name="mobile_number">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress" class="form-label">Address</label>
+      <input type="text" class="form-control" id="inputAddress" name="address" placeholder="1234 Main St">
+    </div>
+ 
+    <div class="col-md-6">
+      <label for="inputCity" class="form-label">City</label>
+      <input type="text" class="form-control" name="city" id="inputCity">
+    </div>
+    <div class="col-md-4">
+      <label for="district" class="form-label">District</label>
+      <input type="text" class="form-control" name="district" id="district">
+    </div>
+    <div class="col-md-2">
+      <label for="inputZip" class="form-label">pincode</label>
+      <input type="text" class="form-control" name="pincode" id="inputZip">
+    </div>
+ <button type="submit" class="btn btn-success">Place Order</button>
+    </div>
+    
+  </form>
+{% endblock %}

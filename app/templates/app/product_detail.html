@@ -1,0 +1,132 @@
+{% extends 'app/base.html' %} {% block title %}Product Details{% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-5 mt-3">
+      <div class="bg-white border">
+        <img src="{{ product.photo.url }}" class="w-100" alt="{{ product.name }}" style="height:450px">
+      </div>
+    </div>
+    <div class="col-md-7 mt-3">
+      <div class="product-view  ">
+        <h4 class="product-name ">
+          {{ product.name }}
+          {% if product.stock > 0 %}
+          <span class="product-stock label-stock  product-instock">In Stock</span>
+          {% else %}
+          <span class="product-stock label-stock  product-outofstock">Out Of Stock</span>
+          {% endif %}
+
+        </h4>
+        <hr>
+        <p class="product-path ">
+          Home / Category / Product /{{product.id}}
+        </p>
+
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+        </div>
+        {% endfor %}
+
+        <div>
+          <p class="card-text "><i class="fa fa-inr" aria-hidden="true"></i>{{ product.price }}
+          </p>
+        </div>
+
+        <form method="post" action="{% url 'add_to_cart' product.id %}">
+
+          {% csrf_token %}
+          <input type="hidden" name="product_id" value="{{ product.id }}" />
+          <div class="mt-2">
+
+            <span class="btn btn1 btn-primary" id="decrement" onclick="decrementQuantity()"><i
+                class="fa fa-minus"></i></span>
+            <input type="number" id="quantity" name="quantity" value="1" />
+            <span class="btn btn1 btn-primary" id="increment" onclick="incrementQuantity()"><i
+                class="fa fa-plus"></i></span>
+          </div>
+      </div>
+      <div class="mt-2">
+
+
+        <button type="submit" class="btn btn1 bg-primary"> <i class="fa fa-shopping-cart"></i> Add To Cart</button>
+
+        <a href="{% url 'add_wishlist' product.id  %}" class="btn btn1 bg-danger"><i class="fa fa-heart"></i>
+          WishList</a>
+
+
+      </div>
+      </form>
+      <div class="mt-3">
+        <h5 class="mb-0">Small Description</h5>
+        <p>
+          {{ product.decription}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-9">
+  <h2>Similar Products</h2>
+  <div class="row">
+    {% for product in similar_products %}
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card product-grid">
+        <div class="product-image">
+          <a href="{% url 'productd' product.id %}">
+            <img src="{{ product.photo.url }}" class="card-img-top" alt="{{ product.name }}" />
+          </a>
+          {% if product.stock > 0 %}
+          <span class="product-stock product-instock">In Stock</span>
+          {% else %}
+          <span class="product-stock product-outofstock">Out Of Stock</span>
+          {% endif %}
+          <ul class="product-links">
+            <li>
+              <a href="">
+                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn a btn-link p-0"><i class="fas fa-shopping-cart"></i></button>
+                </form>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'add_wishlist' product.id %}"><i class="fa fa-heart"></i></a>
+            </li>
+            <li>
+              <a href="{% url 'productd' product.id %}"><i class="fa fa-eye"></i></a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body product-content">
+          <h5 class="card-title title">
+            <a href="{% url 'productd' product.id %}">{{ product.name }}</a>
+          </h5>
+          <p class="card-text price">Price: Rs {{ product.price }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  function decrementQuantity() {
+    var quantityInput = document.getElementById('quantity')
+    var currentQuantity = parseInt(quantityInput.value)
+    if (currentQuantity > 1) {
+      currentQuantity--
+      quantityInput.value = currentQuantity
+    }
+  }
+  function incrementQuantity() {
+    var quantityInput = document.getElementById('quantity')
+    var currentQuantity = parseInt(quantityInput.value)
+    currentQuantity++
+    quantityInput.value = currentQuantity
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'app/base.html' %}
+{% block title %}About{% endblock %}
+{% block body %}
+
+
+<div class="container">
+  <h2>current orders </h2>
+  <hr>
+  {% if current_order %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Order Id</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">order date</th>
+        <th scope="col">deliverydate</th>
+        <th scope="col">status</th>
+        <th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in current_order %}
+      {% for item in order.items.all %}
+      <tr>
+        <th scope="row">{{order.id}}</th>
+        <td>{{item.product.name}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.price}}</td>
+        <td>{{order.created_at}}</td>
+        <td>{{order.delivery_date}}</td>
+        <td>{{item.status}}</td>
+        <td>
+          {% if item.status == 'pending' %}
+          <a href="{% url 'rejectorder' item.id %}" class="btn btn-danger">Reject</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+      {% endfor %}
+    </tbody>
+    {% else %}
+    <p>no current order</p>
+    {% endif %}
+  </table>
+  <h2>previous order</h2>
+  <hr>
+  {% if previous_order %}
+  <table class="table">
+    <thead>
+      <tr>
+
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">order date</th>
+        <th scope="col">deliverydate</th>
+        <th scope="col">status</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in previous_order %}
+      {% for item in order.items.all %}
+      <tr>
+
+        <td scope="row">{{item.product.name}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.price}}</td>
+        <td>{{order.created_at}}</td>
+        <td>{{order.delivery_date}}</td>
+        <td>{{item.status}}</td>
+
+      </tr>
+      {% endfor %}
+      {% endfor %}
+    </tbody>
+    {% else %}
+    <p>no previous order</p>
+    {% endif %}
+  </table>
+</div>
+
+{% endblock %}
