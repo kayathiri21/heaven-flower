@@ -23,12 +23,6 @@
           Home / Category / Product /{{product.id}}
         </p>
 
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
-        </div>
-        {% endfor %}
 
         <div>
           <p class="card-text "><i class="fa fa-inr" aria-hidden="true"></i>{{ product.price }}
@@ -41,19 +35,25 @@
           <input type="hidden" name="product_id" value="{{ product.id }}" />
           <div class="mt-2">
 
-            <span class="btn btn1 btn-primary" id="decrement" onclick="decrementQuantity()"><i
+            <span class="btn btn1 btn-outline-primary" id="decrement" onclick="decrementQuantity()"><i
                 class="fa fa-minus"></i></span>
             <input type="number" id="quantity" name="quantity" value="1" />
-            <span class="btn btn1 btn-primary" id="increment" onclick="incrementQuantity()"><i
+            <span class="btn btn1 btn-outline-primary" id="increment" onclick="incrementQuantity()"><i
                 class="fa fa-plus"></i></span>
           </div>
       </div>
       <div class="mt-2">
 
 
-        <button type="submit" class="btn btn1 bg-primary"> <i class="fa fa-shopping-cart"></i> Add To Cart</button>
 
-        <a href="{% url 'add_wishlist' product.id  %}" class="btn btn1 bg-danger"><i class="fa fa-heart"></i>
+
+
+
+        <button type="submit" class="btn   btn-sm me-2 align-items-center btn-outline-primary">
+          <i class="fa fa-shopping-cart"></i> Add To Cart</button>
+
+        <a href="{% url 'add_wishlist' product.id  %}" class="btn btn-sm me-2 align-items-center btn-outline-danger"><i
+            class="fa fa-heart"></i>
           WishList</a>
 
 

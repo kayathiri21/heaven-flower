@@ -8,6 +8,7 @@
   align-items: center;
   height: 450px;
   justify-content: center;
+  /* position: relative; */
 }
 .sec::before {
   content: '';
@@ -34,6 +35,9 @@
 .product-grid {
   font-family: 'Poppins', sans-serif;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .product-grid .product-image {
   overflow: hidden;
@@ -45,6 +49,7 @@
 }
 .product-grid .product-image img {
   width: 100%;
+
   object-fit: cover;
   object-position: 50% 50%;
 }
@@ -96,6 +101,7 @@
   color: #fff;
   background: #333;
 }
+
 .product-grid .add-to-cart {
   background: #a5ba8d;
   color: #fff;
@@ -148,4 +154,36 @@
   .product-grid {
     margin-bottom: 30px;
   }
+}
+.footer {
+  background-color: #333; /* Dark background color */
+  color: white; /* Text color */
+  padding: 20px 0; /* Padding */
+  position: relative; /* Relative positioning */
+  bottom: 0; /* Stick to the bottom */
+  width: 100%; /* Full width */
+}
+
+.footer .social-icons a {
+  color: white; /* White color for social icons */
+  font-size: 20px; /* Increase size of icons */
+  margin-right: 10px; /* Spacing between icons */
+  transition: color 0.3s; /* Transition effect on hover */
+}
+
+.footer .social-icons a:hover {
+  color: #00aced; /* Change color on hover */
+}
+
+.footer h5 {
+  margin-bottom: 15px; /* Space below headings */
+}
+
+.footer a {
+  color: white; /* Link color */
+  text-decoration: none; /* Remove underline */
+}
+
+.footer a:hover {
+  color: #f8f9fa; /* Change color on hover */
 }

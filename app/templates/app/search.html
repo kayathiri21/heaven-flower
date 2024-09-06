@@ -1,0 +1,71 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block body %}
+<section class=" bg-light d-flex justify-content-center align-item-center h-100 min-vh-100">
+
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="mb-4 p-2 text-dark ">Search Results for "{{ query }}"</h4>
+            </div>
+            {% if products %}
+            <div class="row">
+                {% for product in products %}
+                <div class=" col-md-3 mb-4">
+                    <div class="card product-grid">
+                        <div class="product-image ">
+                            <a href="{% url 'productd' product.id %}" class="image">
+                                {% if product.photo %}
+                                <img src="{{ product.photo.url }}" alt="{{ product.name }}" class="card-img-top">
+                                {% else %}
+                                <img src="{% static 'path_to_placeholder_image.png' %}" alt="No image available"
+                                    class="card-img-top">
+                                {% endif %}
+                            </a>
+                            {% if product.stock > 0 %}
+                            <span class="product-stock product-instock">In Stock</span>
+                            {% else %}
+                            <span class="product-stock product-outofstock">Out Of Stock</span>
+                            {% endif %}
+                            <ul class="product-links">
+                                <li>
+                                    <a href="">
+                                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn a btn-link p-0"><i
+                                                    class="fas fa-shopping-cart"></i></button>
+                                        </form>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'add_wishlist' product.id %}">
+                                        <i class="fa fa-heart"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'productd' product.id %}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body product-content">
+                            <h5 class="title">
+                                <a href="{% url 'productd' product.id %}">{{ product.name }}</a>
+                            </h5>
+                            <p class="price">Price: Rs {{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No products found for "{{ query }}"</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

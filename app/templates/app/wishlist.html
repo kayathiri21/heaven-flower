@@ -1,66 +1,62 @@
-{% extends 'app/base.html' %} {% block title %}Wishlist{% endblock %}
+{% extends 'app/base.html' %}
+{% block title %}Wishlist{% endblock %}
 {% load static %}
 {% block body %}
-<section class="vh-100">
-
-  <div class="row">
-    {% for item in wishlist_item%}
-    <div class="col-lg-4 col-md-6 mb-4">
-      <div class="card product-grid">
-        <div class="product-image">
-          <a href="">
-            <img src="{{item.product.photo.url}}" class="card-img-top" alt="Product Image" />
-          </a>
-          {% if product.stock > 0 %}
-          <span class="product-stock product-instock">In Stock</span>
-          {% else %}
-          <span class="product-stock product-outofstock">Out Of Stock</span>
-          {% endif %}
-          <ul class="product-links">
-            <li><a href="">
-                <form method="post" action="{% url 'add_to_cart' product.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="btn a btn-link p-0"><i class="fas fa-shopping-cart"></i></button>
-                </form>
-              </a>
-            </li>
-            <li>
-              <a href="{% url 'add_wishlist' item.product.id  %}"><i class="fa fa-heart"></i></a>
-            </li>
-            <li>
-              <a href="{% url 'productd' item.product.id %}"><i class="fa fa-eye"></i></a>
-            </li>
-          </ul>
-        </div>
-        <div class="card-body product-content h-4">
-          <h5 class="card-title title">
-            <a href="{% url 'productd' item.product.id %}">{{item.product.name}} </a>
-          </h5>
-
-          <p class="card-text price">Price: Rs {{ item.product.price }}</p>
-          <!-- Add more product details as needed -->
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  </div>
-
-  <!-- <div class="col-md-9">
-    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4"> My WishList</p>
-    {% if messages %}
+<section class="py-5 " style="min-height: 100vh; background-color: #f8f9fa;">
+  <div class="container">
+    <h2 class="text-center mb-5 display-4 text-primary">My Wishlist</h2>
     <div class="row">
-      <div class="col-md-4">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      {% for item in wishlist_item %}
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm border-0 rounded-3 h-100">
+          <div class="position-relative">
+            <a href="{% url 'productd' item.product.id %}" class="d-block">
+              <img src="{{ item.product.photo.url }}" class="card-img-top rounded-top" alt="{{ item.product.name }}"
+                style="object-fit: cover; height: 200px; width: 100%; transition: transform 0.2s ease-in-out;" />
+            </a>
+            {% if item.product.stock > 0 %}
+            <span class="position-absolute top-0 start-0 m-2 badge bg-success rounded-pill">In Stock</span>
+            {% else %}
+            <span class="position-absolute top-0 start-0 m-2 badge bg-danger rounded-pill">Out of Stock</span>
+            {% endif %}
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-center mb-2">
+              <a href="{% url 'productd' item.product.id %}" class="text-decoration-none text-dark fw-bold">
+                {{ item.product.name }}</a>
+            </h5>
+            <p class="card-text text-center text-muted mb-4">
+              <i class="fas fa-rupee-sign"></i> {{ item.product.price }}
+            </p>
+            <div class="mt-auto">
+              <div class="d-flex justify-content-between align-items-center">
+                <form method="post" action="{% url 'add_to_cart' item.product.id %}" class="me-2">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                    <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+                  </button>
+                </form>
+                <a href="{% url 'add_wishlist' item.product.id %}"
+                  class="btn btn-outline-danger btn-sm d-flex align-items-center me-2">
+                  <i class="fa fa-heart me-2"></i> Remove
+                </a>
+                <a href="{% url 'productd' item.product.id %}"
+                  class="btn btn-outline-secondary btn-sm d-flex align-items-center">
+                  <i class="fa fa-eye me-2"></i> View Details
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        {% endfor %}
       </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="alert alert-warning text-center" role="alert">
+          Your wishlist is currently empty. Start adding your favorite products!
+        </div>
+      </div>
+      {% endfor %}
     </div>
-    {% endif %}
-  </div> -->
-  {% endblock %}
+  </div>
+</section>
+{% endblock %}

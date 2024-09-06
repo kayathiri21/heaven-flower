@@ -1,64 +1,122 @@
 {% extends 'app/base.html' %}
 
-
+{% load static %}
 {% block title %}About Us{% endblock %}
 
 {% block body %}
-<div class="container ">
-    <section class="sec text-center mb-5">
-        <h1 class="display-4">About Us</h1>
-        <p class="lead">Welcome to our flower shop! At <strong>[Heaven Flower ]</strong>, we believe in the beauty and
-            joy that fresh flowers bring to every occasion. Our mission is to brighten someone's day with elegant and
-            thoughtfully crafted bouquets.</p>
-        <p>Founded in <strong>[2024]</strong>, our shop has been dedicated to providing the highest quality flowers and
-            exceptional customer service. Our team of experienced florists takes pride in selecting the freshest blooms
-            and designing stunning arrangements that suit every taste and event.</p>
-        <p>Whether you're celebrating a birthday, anniversary, wedding, or simply want to make someone's day special, we
-            have a bouquet for you. Explore our wide range of floral arrangements and find the perfect flowers for any
-            occasion.</p>
-        <p>Thank you for choosing <strong>[Heaven Flower ]</strong>. We look forward to helping you express your
-            emotions through the language of flowers.</p>
+<div class="about-page">
+    <section class="hero-section text-center">
+        <div class="container-fluid">
+            <h1 class="display-4 text-dark mt-5">About Us</h1>
+            <p class="lead text-muted">Beautiful Blooms, Memorable Moments</p>
+        </div>
     </section>
 
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h2 class="card-title">Our Mission</h2>
-                    <p class="card-text">To bring happiness and beauty to every occasion with our carefully crafted
-                        floral arrangements. We are committed to providing our customers with the freshest flowers and
-                        exceptional service.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h2 class="card-title">Our Team</h2>
-                    <p class="card-text">Our team of skilled florists is passionate about flowers and creativity. Each
-                        member of our team brings unique talent and dedication to ensure every bouquet is a work of art.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- About Us Section -->
+    <section class="about-us-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- About Image -->
+                <div class="col-md-6  mb-4">
 
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h2 class="card-title text-center">Contact Us</h2>
-                    <p class="text-center">If you have any questions or need assistance, please feel free to contact us:
-                    </p>
-                    <ul class="list-unstyled text-center">
-                        <li><strong>Email:</strong> info@flowershop.com</li>
-                        <li><strong>Phone:</strong> 1234567891</li>
-                        <li><strong>Address:</strong> kk district</li>
-                    </ul>
+                    <img src="{% static 'image/Beige Pink Elegant Circle Peony Flower Shop Logo.png' %}"
+                        alt="Flower Shop" class="img-fluid rounded  shadow">
+                </div>
+                <!-- About Text -->
+                <div class="col-md-6">
+                    <h2 class="text-dark mb-4">Welcome to Our Flower Shop</h2>
+                    <p>At Boqee, we believe that flowers are more than just plants; they are the embodiment of love,
+                        celebration, and the beauty of life. For over a decade, we have been crafting stunning bouquets,
+                        floral arrangements, and decorations for every occasion—from intimate gatherings to grand
+                        events.</p>
+                    <p>Our passion for flowers is matched only by our commitment to customer satisfaction. Whether
+                        you're looking for a unique bouquet to surprise a loved one or need elegant floral decorations
+                        for a wedding, we are here to bring your vision to life.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section bg-light py-5">
+        <div class="container-fluid">
+            <div class="text-center mb-5">
+                <h2 class="text-dark">Our Services</h2>
+                <p class="text-muted">From bouquets to grand events, we do it all.</p>
+            </div>
+            <div class="row">
+                <!-- Service 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100 p-4 text-center border rounded shadow-sm">
+                        <i class="fas fa-seedling fa-3x mb-3 text-success"></i>
+                        <h5 class="text-dark">Bouquet Delivery</h5>
+                        <p>Customized bouquets delivered fresh to your doorstep. Perfect for every occasion.</p>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100 p-4 text-center border rounded shadow-sm">
+                        <i class="fas fa-calendar-alt fa-3x mb-3 text-success"></i>
+                        <h5 class="text-dark">Event Decoration</h5>
+                        <p>Transform your event with our exquisite floral decorations designed to leave a lasting
+                            impression.</p>
+                    </div>
+                </div>
+                <!-- Service 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="service-card h-100 p-4 text-center border rounded shadow-sm">
+                        <i class="fas fa-hand-holding-heart fa-3x mb-3 text-success"></i>
+                        <h5 class="text-dark">Custom Arrangements</h5>
+                        <p>Personalized floral arrangements tailored to your taste and preferences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section py-5">
+        <div class="container-fluid">
+            <div class="text-center mb-5">
+                <h2 class="text-dark">What Our Clients Say</h2>
+                <p class="text-muted">Hear from our satisfied customers.</p>
+            </div>
+            <div class="row">
+                <!-- Testimonial 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100 p-4 border rounded shadow-sm text-center">
+                        <p class="mb-4">"Boqee made our wedding unforgettable with their breathtaking floral
+                            arrangements. Highly recommend!"</p>
+                        <h6 class="text-dark">— Sarah & Michael</h6>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100 p-4 border rounded shadow-sm text-center">
+                        <p class="mb-4">"The bouquet I ordered for my anniversary was stunning and delivered on time.
+                            Excellent service!"</p>
+                        <h6 class="text-dark">— Lisa W.</h6>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="testimonial-card h-100 p-4 border rounded shadow-sm text-center">
+                        <p class="mb-4">"Fantastic experience! The team at Boqee went above and beyond to make our
+                            corporate event look amazing."</p>
+                        <h6 class="text-dark">— James C.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section py-5 bg-success text-white text-center">
+        <div class="container">
+            <h2 class="mb-4">Let's Make Your Event Bloom</h2>
+
+        </div>
+    </section>
 </div>
 {% endblock %}
 

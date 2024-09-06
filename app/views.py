@@ -23,6 +23,13 @@ def home(request):
     return render(request, "./app/index.html", {'mcat': main, 'products': products,'show_login_message': show_login_message})
 
 
+def search(request):
+    query = request.GET.get('query')
+    if query:
+        products = Product.objects.filter(name__icontains=query)
+    else:
+        products = Product.objects.none()
+    return render(request, 'app/search.html', {'products': products, 'query': query})
 
 def product_details(request,product_id):
      product=get_object_or_404(Product,pk=product_id)

@@ -2,84 +2,126 @@
 {% block title %}About{% endblock %}
 {% block body %}
 
+<div class="container my-5">
+  <!-- Current Orders Section -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0">Current Orders</h4>
+    </div>
+    <div class="card-body">
+      {% if current_order %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Order Id</th>
+              <th scope="col">Product</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Order Date</th>
+              <th scope="col">Delivery Date</th>
+              <th scope="col">Status</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in current_order %}
+            {% for item in order.items.all %}
+            <tr>
+              <th scope="row">{{ order.id }}</th>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="{{ item.product.photo.url }}" alt="{{ item.product.name }}" width="50" height="50"
+                    class="rounded-circle me-2">
+                  <span>{{ item.product.name }}</span>
+                </div>
+              </td>
+              <td>{{ item.quantity }}</td>
+              <td><i class="fas fa-rupee-sign"></i>{{ item.price }}</td>
+              <td>{{ order.created_at|date:"Y-m-d" }}</td>
+              <td>{{ order.delivery_date|date:"Y-m-d" }}</td>
+              <td>
+                {% if item.status == 'pending' %}
+                <span class="badge bg-warning text-dark">Pending</span>
+                {% elif item.status == 'delivered' %}
+                <span class="badge bg-success">Delivered</span>
+                {% else %}
+                <span class="badge bg-secondary">{{ item.status }}</span>
+                {% endif %}
+              </td>
+              <td>
+                {% if item.status == 'pending' %}
+                <a href="{% url 'rejectorder' item.id %}" class="btn btn-sm btn-danger">Reject</a>
+                {% else %}
+                <span class="text-muted">N/A</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-muted">No current orders available.</p>
+      {% endif %}
+    </div>
+  </div>
 
-<div class="container">
-  <h2>current orders </h2>
-  <hr>
-  {% if current_order %}
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Order Id</th>
-        <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th scope="col">order date</th>
-        <th scope="col">deliverydate</th>
-        <th scope="col">status</th>
-        <th scope="col">actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for order in current_order %}
-      {% for item in order.items.all %}
-      <tr>
-        <th scope="row">{{order.id}}</th>
-        <td>{{item.product.name}}</td>
-        <td>{{item.quantity}}</td>
-        <td>{{item.price}}</td>
-        <td>{{order.created_at}}</td>
-        <td>{{order.delivery_date}}</td>
-        <td>{{item.status}}</td>
-        <td>
-          {% if item.status == 'pending' %}
-          <a href="{% url 'rejectorder' item.id %}" class="btn btn-danger">Reject</a>
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-      {% endfor %}
-    </tbody>
-    {% else %}
-    <p>no current order</p>
-    {% endif %}
-  </table>
-  <h2>previous order</h2>
-  <hr>
-  {% if previous_order %}
-  <table class="table">
-    <thead>
-      <tr>
-
-        <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th scope="col">order date</th>
-        <th scope="col">deliverydate</th>
-        <th scope="col">status</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      {% for order in previous_order %}
-      {% for item in order.items.all %}
-      <tr>
-
-        <td scope="row">{{item.product.name}}</td>
-        <td>{{item.quantity}}</td>
-        <td>{{item.price}}</td>
-        <td>{{order.created_at}}</td>
-        <td>{{order.delivery_date}}</td>
-        <td>{{item.status}}</td>
-
-      </tr>
-      {% endfor %}
-      {% endfor %}
-    </tbody>
-    {% else %}
-    <p>no previous order</p>
-    {% endif %}
-  </table>
+  <!-- Previous Orders Section -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0">Previous Orders</h4>
+    </div>
+    <div class="card-body">
+      {% if previous_order %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Product</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Order Date</th>
+              <th scope="col">Delivery Date</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in previous_order %}
+            {% for item in order.items.all %}
+            <tr>
+              <td>
+                <div class="d-flex align-items-center">
+                  <img src="{{ item.product.photo.url }}" alt="{{ item.product.name }}" width="50" height="50"
+                    class="rounded-circle me-2">
+                  <span>{{ item.product.name }}</span>
+                </div>
+              </td>
+              <td>{{ item.quantity }}</td>
+              <td><i class="fas fa-rupee-sign"></i>{{ item.price }}</td>
+              <td>{{ order.created_at|date:"Y-m-d" }}</td>
+              <td>{{ order.delivery_date|date:"Y-m-d" }}</td>
+              <td>
+                {% if item.status == 'delivered' %}
+                <span class="badge bg-success">Delivered</span>
+                {% elif item.status == 'cancelled' %}
+                <span class="badge bg-danger">Cancelled</span>
+                {% else %}
+                <span class="badge bg-secondary">{{ item.status }}</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="text-muted">No previous orders available.</p>
+      {% endif %}
+    </div>
+  </div>
 </div>
 
 {% endblock %}
